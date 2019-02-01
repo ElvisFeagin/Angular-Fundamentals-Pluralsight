@@ -1,9 +1,19 @@
-import {Injectable} from '@angular/core'
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class EventService {
   getEvents() {
-    return EVENTS;
+    let subject = new Subject();
+    setTimeout(() => {
+      subject.next(EVENTS);
+      subject.complete();
+    }, 100);
+    return subject;
+  }
+
+  getEvent(id: number) {
+    return EVENTS.find(event => event.id === id);
   }
 }
 
@@ -93,11 +103,7 @@ const EVENTS = [
     time: '9:00 am',
     price: 950.0,
     imageUrl: '/assets/images/ng-nl.png',
-    location: {
-      address: 'The NG-NL Convention Center & Scuba Shop',
-      city: 'Amsterdam',
-      country: 'Netherlands'
-    },
+    onlineUrl: 'http://ng-nl.org/',
     sessions: [
       {
         id: 1,
@@ -153,7 +159,11 @@ const EVENTS = [
     time: '9:00 am',
     price: 759.0,
     imageUrl: '/assets/images/ng-conf.png',
-    onlineUrl: 'http://ng-nl.org',
+    location: {
+      address: 'The Palatial America Hotel',
+      city: 'Salt Lake City',
+      country: 'USA'
+    },
     sessions: [
       {
         id: 1,
