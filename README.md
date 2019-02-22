@@ -1,1 +1,1 @@
-Learning Angular from Pluralsight - Angular Fundamentals
+Pluralsight Angular Fundamentals
