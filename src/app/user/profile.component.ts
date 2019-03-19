@@ -50,7 +50,6 @@ export class ProfileComponent implements OnInit {
       Validators.required,
       Validators.pattern('[a-zA-Z].*')
     ]);
-    console.log('this.firstName', this.firstName);
     this.lastName = new FormControl(
       this.authService.currentUser.lastName,
       Validators.required
