@@ -24,7 +24,7 @@
         >Required</em
       >
       <input
-        (ngModel)="(event.name)"
+        (ngModel)="(newEvent.name)"
         name="name"
         required
         id="name"
@@ -50,7 +50,7 @@
         >Required</em
       >
       <input
-        (ngModel)="(event.date)"
+        (ngModel)="(newEvent.date)"
         name="date"
         required
         id="eventDate"
@@ -76,7 +76,7 @@
         >Required</em
       >
       <input
-        (ngModel)="(event.time)"
+        (ngModel)="(newEvent.time)"
         name="time"
         required
         id="eventTime"
@@ -102,7 +102,7 @@
         >Required</em
       >
       <input
-        (ngModel)="(event.price)"
+        (ngModel)="(newEvent.price)"
         name="price"
         required
         id="eventPrice"
@@ -112,11 +112,14 @@
         placeholder="event price..."
       />
     </div>
-    <div ngModelGroup="location" validateLocation>
+    <div ngModelGroup="location" #locationGroup="ngModelGroup" validateLocation>
       <div class="form-group">
         <label for="address">Event Location:</label>
+        <em *ngIf="locationGroup?.invalid && locationGroup?.touched"
+          >You must enter either the full location OR an online URL</em
+        >
         <input
-          (ngModel)="(event.address)"
+          (ngModel)="(newEvent.address)"
           name="address"
           id="address"
           type="text"
@@ -127,7 +130,7 @@
       <div class="row">
         <div class="col-md-6">
           <input
-            (ngModel)="(event.city)"
+            (ngModel)="(newEvent.city)"
             name="city"
             id="city"
             type="text"
@@ -137,7 +140,7 @@
         </div>
         <div class="col-md-6">
           <input
-            (ngModel)="(event.country)"
+            (ngModel)="(newEvent.country)"
             name="country"
             id="country"
             type="text"
@@ -151,11 +154,14 @@
     <div class="form-group">
       <label for="onlineUrl">Online Url:</label>
       <input
-        (ngModel)="(event.onlineUrl)"
+        (ngModel)="(newEvent.onlineUrl)"
         name="onlineUrl"
         id="onlineUrl"
         type="text"
         class="form-control"
+        (change)="
+          locationGroup.control.controls.address.updateValueAndValidity()
+        "
         placeholder="Online Url..."
       />
     </div>
@@ -185,7 +191,7 @@
         >Must be a png or jpg url</em
       >
       <input
-        (ngModel)="(event.imageUrl)"
+        (ngModel)="(newEvent.imageUrl)"
         name="imageUrl"
         required
         pattern=".*\/.*.(png|jpg)"
@@ -200,13 +206,14 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
     <button
-      type="button"
+      type="submit"
       [disabled]="newEventForm.invalid"
-      class="btn btn-default"
-      (click)="cancel()"
+      class="btn btn-primary"
     >
+      Save
+    </button>
+    <button type="button" class="btn btn-default" (click)="cancel()">
       Cancel
     </button>
   </form>
