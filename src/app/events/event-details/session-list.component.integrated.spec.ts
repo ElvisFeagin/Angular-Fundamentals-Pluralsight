@@ -62,9 +62,12 @@ describe('SessionListComponent', () => {
       component.eventId = 4;
       component.ngOnChanges();
       fixture.detectChanges();
-      expect(element.querySelector('[well-title]').textContent).toContain(
-        'Session 1'
-      );
+      // expect(element.querySelector('[well-title]').textContent).toContain(
+      //   'Session 1'
+      // );
+      expect(
+        debugEl.query(By.css('[well-title]')).nativeElement.textContent
+      ).toContain('Session 1');
     });
   });
 });
