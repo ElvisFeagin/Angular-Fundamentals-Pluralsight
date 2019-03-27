@@ -23,6 +23,7 @@ describe('SessionListComponent', () => {
       component.ngOnChanges();
       expect(component.visibleSessions.length).toBe(2);
     });
+    
     it('should sort the sessions correctly', () => {
       component.sessions = <ISession[]>[
         { name: 'session 1', level: 'intermediate' },
